@@ -1,0 +1,14 @@
+version: '2'
+services:
+  common_server:
+    network_mode: "host"
+    build:
+      context: ../
+    volumes:
+      - ../:/usr/src/app/
+    tty: true
+
+  celery-worker:
+    extends:
+      service: common_server
+    command: celery -A worker worker --loglevel=DEBUG
